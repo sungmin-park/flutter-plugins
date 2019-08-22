@@ -4,6 +4,10 @@
 * Bump the minimum Flutter version to 1.2.0.
 * Add template type parameter to `invokeMethod` calls.
 
+## 0.10.1+7
+
+* Fix tests by ignoring deprecated member use.
+
 ## 0.10.1+6
 
 * [iOS] Fixed a memory leak with notification observing.

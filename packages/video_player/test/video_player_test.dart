@@ -45,6 +45,9 @@ class FakeController extends ValueNotifier<VideoPlayerValue>
   Future<void> setSpeed(double speed) async {
     value = value.copyWith(speed: speed);
   }
+
+  @override
+  VideoFormat get formatHint => null;
 }
 
 void main() {

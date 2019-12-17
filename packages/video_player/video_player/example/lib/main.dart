@@ -9,8 +9,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:video_player/video_player.dart';
 
 /// Controls play and pause of [controller].
 ///
@@ -333,6 +333,7 @@ class AspectRatioVideo extends StatefulWidget {
 class AspectRatioVideoState extends State<AspectRatioVideo> {
   VideoPlayerController get controller => widget.controller;
   bool initialized = false;
+  double speed = 1.0;
 
   VoidCallback listener;
 
@@ -347,6 +348,10 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
         initialized = controller.value.initialized;
         setState(() {});
       }
+      if (speed != controller.value.speed) {
+        speed = controller.value.speed;
+        setState(() {});
+      }
     };
     controller.addListener(listener);
   }
@@ -354,11 +359,23 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
   @override
   Widget build(BuildContext context) {
     if (initialized) {
-      return Center(
-        child: AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: VideoPlayPause(controller),
-        ),
+      return Column(
+        children: <Widget>[
+          AspectRatio(
+            aspectRatio: controller.value.aspectRatio,
+            child: VideoPlayPause(controller),
+          ),
+          SizedBox(height: 20),
+          Text('Playback Speed : ${controller.value.speed}'),
+          Slider(
+            value: controller.value.speed,
+            max: 2.0,
+            
+            onChanged: (speed) {
+              controller.setSpeed(speed);
+            },
+          ),
+        ],
       );
     } else {
       return Container();

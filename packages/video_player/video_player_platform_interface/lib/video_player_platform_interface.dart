@@ -95,6 +95,17 @@ abstract class VideoPlayerPlatform {
     throw UnimplementedError('setVolume() has not been implemented.');
   }
 
+  /// Sets the playback speed.
+  ///
+  /// [speed] can be 0.5x, 1x, 2x
+  /// by default speed value is 1.0
+  ///
+  /// Negative speeds are not supported
+  /// speeds above 2x are not supported on iOS
+  Future<void> setSpeed(int textureId, double speed) {
+    throw UnimplementedError('setSpeed() has not been implemented.');
+  }
+
   /// Sets the video position to a [Duration] from the start.
   Future<void> seekTo(int textureId, Duration position) {
     throw UnimplementedError('seekTo() has not been implemented.');

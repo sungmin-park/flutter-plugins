@@ -189,7 +189,9 @@ void main() {
       await controller.play();
 
       expect(controller.value.isPlaying, isTrue);
-      expect(fakeVideoPlayerPlatform.calls.last.method, 'play');
+      print(fakeVideoPlayerPlatform.calls);
+      // Last Call is SetSpeed to ensure speed is correctly applied - see setSpeed method
+      expect(fakeVideoPlayerPlatform.calls[fakeVideoPlayerPlatform.calls.length - 2].method, 'play');
     });
 
     test('setLooping', () async {
@@ -418,7 +420,7 @@ void main() {
           volume: volume);
 
       expect(value.toString(),
-          'VideoPlayerValue(duration: 0:00:05.000000, size: Size(400.0, 300.0), position: 0:00:01.000000, buffered: [DurationRange(start: 0:00:00.000000, end: 0:00:04.000000)], isPlaying: true, isLooping: true, isBuffering: truevolume: 0.5, errorDescription: null)');
+          'VideoPlayerValue(duration: 0:00:05.000000, size: Size(400.0, 300.0), position: 0:00:01.000000, buffered: [DurationRange(start: 0:00:00.000000, end: 0:00:04.000000)], isPlaying: true, isLooping: true, isBuffering: truevolume: 0.5, errorDescription: null, speed: 1.0)');
     });
 
     test('copyWith()', () {
@@ -490,6 +492,7 @@ class FakeVideoPlayerPlatform {
       case 'play':
       case 'setLooping':
       case 'setVolume':
+      case 'setSpeed':
         break;
       default:
         throw UnimplementedError(

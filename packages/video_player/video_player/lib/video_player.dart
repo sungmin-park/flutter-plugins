@@ -131,7 +131,7 @@ class VideoPlayerValue {
         'isLooping: $isLooping, '
         'isBuffering: $isBuffering'
         'volume: $volume, '
-        'errorDescription: $errorDescription'
+        'errorDescription: $errorDescription, '
         'speed: $speed)';
   }
 }
@@ -417,10 +417,7 @@ class VideoPlayerController extends ValueNotifier<VideoPlayerValue> {
       return;
     }
 
-    await _channel.invokeMethod<void>(
-      'setSpeed',
-      <String, dynamic>{'textureId': _textureId, 'speed': value.speed},
-    );
+    await VideoPlayerPlatform.instance.setSpeed(_textureId, value.speed);
   }
 
   /// Sets the playback speed of [this].
